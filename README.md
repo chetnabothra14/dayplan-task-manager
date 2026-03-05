@@ -9,7 +9,7 @@ A full-stack daily task manager with AI-powered productivity coaching.
 - Task management with priority levels (High, Medium, Low)
 - Priority-based browser notifications and reminders
 - AI Battle Plan — generates a personalized daily plan via Claude API
-- Three coaching modes: Drill Sergeant 🪖, Zen Coach 🧘, Hype Beast 🔥
+- Three coaching modes: Drill Sergeant , Zen Coach , Hype Beast 
 - User authentication via Supabase (email/password + Google OAuth)
 - Real-time sync across devices via Supabase WebSockets
 - Responsive dark-mode UI
