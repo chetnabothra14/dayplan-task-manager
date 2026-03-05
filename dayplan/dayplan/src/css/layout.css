@@ -1,0 +1,119 @@
+#app {
+  position: relative; z-index: 1;
+  max-width: 860px; margin: 0 auto;
+  padding: 40px 20px 80px;
+  display: none;
+}
+
+header {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; margin-bottom: 48px;
+}
+.logo {
+  font-family: 'Syne', sans-serif; font-weight: 800;
+  font-size: 2.4rem; letter-spacing: -2px;
+}
+.logo span { color: var(--accent); }
+.header-right { text-align: right; }
+.date-display {
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: 1rem; color: var(--muted); line-height: 1.6;
+}
+.user-bar {
+  display: flex; align-items: center;
+  justify-content: flex-end; gap: 10px; margin-bottom: 6px;
+}
+.user-email { font-size: .7rem; color: var(--muted); }
+.signout-btn {
+  background: none; border: 1px solid var(--border); color: var(--muted);
+  font-family: 'DM Mono', monospace; font-size: .65rem;
+  padding: 4px 10px; border-radius: 4px; cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.signout-btn:hover { border-color: #ff6b6b; color: #ff6b6b; }
+
+/* Stats */
+.stats { display: flex; gap: 16px; margin-bottom: 32px; }
+.stat {
+  flex: 1; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.6rem;
+}
+.stat-label {
+  font-size: .65rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 2px; margin-top: 2px;
+}
+#stat-high { color: var(--high); }
+
+/* Notification bar */
+.permission-bar {
+  background: rgba(123,94,167,.1);
+  border: 1px solid rgba(123,94,167,.3);
+  border-radius: 8px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 24px; font-size: .8rem;
+}
+.permission-bar button {
+  background: var(--accent); color: #fff; border: none;
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: .72rem; padding: 6px 14px; border-radius: 4px;
+  cursor: pointer; letter-spacing: 1px; margin-left: auto;
+}
+
+/* Add task form */
+.add-task-section {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px; margin-bottom: 32px;
+}
+.form-title {
+  font-family: 'Syne', sans-serif; font-weight: 700;
+  font-size: .75rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 16px;
+}
+.form-row { display: flex; gap: 10px; flex-wrap: wrap; }
+
+input[type=text], input[type=time], select {
+  background: var(--bg); border: 1px solid var(--border);
+  color: var(--text); font-family: 'DM Mono', monospace;
+  font-size: .85rem; padding: 10px 14px;
+  border-radius: 6px; outline: none; transition: border-color .2s;
+}
+input[type=text]  { flex: 1; min-width: 200px; }
+input[type=time]  { width: 130px; }
+select            { width: 130px; cursor: pointer; }
+input:focus, select:focus { border-color: var(--accent); }
+
+.add-btn {
+  background: var(--accent); color: #fff; border: none;
+  font-family: 'Syne', sans-serif; font-weight: 700; font-size: .85rem;
+  padding: 10px 22px; border-radius: 6px; cursor: pointer; letter-spacing: 1px;
+  transition: opacity .2s, transform .1s;
+}
+.add-btn:hover { opacity: .85; transform: translateY(-1px); }
+
+/* Priority legend */
+.priority-legend {
+  display: flex; gap: 16px; margin-bottom: 24px; flex-wrap: wrap;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-size: .7rem; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 1px;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Toolbar */
+.toolbar {
+  display: flex; justify-content: space-between;
+  align-items: center; margin-bottom: 16px;
+}
+.toolbar-label { font-size: .7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
+.sort-btn {
+  background: none; border: 1px solid var(--border); color: var(--muted);
+  font-family: 'DM Mono', monospace; font-size: .7rem;
+  padding: 6px 12px; border-radius: 4px; cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.sort-btn:hover, .sort-btn.active { border-color: var(--accent); color: var(--text); }

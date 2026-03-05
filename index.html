@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAYPLAN — Task Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ── AUTH SCREEN ── -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <div class="auth-logo">DAY<span>PLAN</span></div>
+      <div class="auth-subtitle">Your AI-powered daily task manager</div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-login" onclick="window.switchTab('login')">Sign In</button>
+        <button class="auth-tab" id="tab-signup" onclick="window.switchTab('signup')">Sign Up</button>
+      </div>
+
+      <div class="auth-field">
+        <label>Email</label>
+        <input type="email" id="auth-email" placeholder="you@example.com"
+          onkeydown="if(event.key==='Enter') window.authSubmit()">
+      </div>
+      <div class="auth-field">
+        <label>Password</label>
+        <input type="password" id="auth-password" placeholder="••••••••"
+          onkeydown="if(event.key==='Enter') window.authSubmit()">
+      </div>
+
+      <button class="auth-btn" id="auth-btn" onclick="window.authSubmit()">Sign In</button>
+
+      <div class="auth-divider"><span>or</span></div>
+      <button class="oauth-btn" onclick="window.googleLogin()">
+        <svg width="18" height="18" viewBox="0 0 18 18">
+          <path fill="#4285F4" d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"/>
+          <path fill="#34A853" d="M9 18c2.43 0 4.467-.806 5.956-2.18l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z"/>
+          <path fill="#FBBC05" d="M3.964 10.71A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.71V4.958H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.042l3.007-2.332z"/>
+          <path fill="#EA4335" d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.958L3.964 6.29C4.672 4.163 6.656 3.58 9 3.58z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="auth-msg" id="auth-msg"></div>
+    </div>
+  </div>
+
+  <!-- ── MAIN APP ── -->
+  <div id="app">
+    <header>
+      <div class="logo">DAY<span>PLAN</span></div>
+      <div class="header-right">
+        <div class="user-bar">
+          <span class="user-email" id="user-email"></span>
+          <button class="signout-btn" onclick="window.signOut()">Sign Out</button>
+        </div>
+        <div class="date-display" id="date-display"></div>
+      </div>
+    </header>
+
+    <div class="permission-bar" id="perm-bar">
+      <span>🔔 Enable notifications to get reminded when tasks are due</span>
+      <button onclick="window.requestNotifPermission()">Enable</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-num" id="stat-total">0</div><div class="stat-label">Total</div></div>
+      <div class="stat"><div class="stat-num" id="stat-done">0</div><div class="stat-label">Completed</div></div>
+      <div class="stat"><div class="stat-num" id="stat-pending">0</div><div class="stat-label">Pending</div></div>
+      <div class="stat"><div class="stat-num" id="stat-high">0</div><div class="stat-label">High Priority</div></div>
+    </div>
+
+    <!-- AI Battle Plan -->
+    <div class="battle-plan-section">
+      <div class="battle-plan-header" onclick="window.toggleBattlePlan()">
+        <div class="battle-plan-title">
+          <span>⚡</span> AI Battle Plan
+          <span class="bp-badge">AI-POWERED</span>
+        </div>
+        <span class="battle-plan-toggle" id="bp-toggle">▼</span>
+      </div>
+      <div class="battle-plan-body" id="bp-body">
+        <div class="progress-wrap">
+          <div class="progress-label">
+            <span>Today's Progress</span>
+            <span id="progress-pct">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width:0%"></div>
+          </div>
+        </div>
+        <div class="mode-selector">
+          <button class="mode-btn active" id="mode-drill" onclick="window.setMode('drill')">
+            <span class="mode-emoji">🪖</span>Drill Sergeant
+          </button>
+          <button class="mode-btn" id="mode-coach" onclick="window.setMode('coach')">
+            <span class="mode-emoji">🧘</span>Zen Coach
+          </button>
+          <button class="mode-btn" id="mode-hype" onclick="window.setMode('hype')">
+            <span class="mode-emoji">🔥</span>Hype Beast
+          </button>
+        </div>
+        <button class="bp-generate-btn" id="bp-btn" onclick="window.generatePlan()">
+          <span>⚡</span> Generate My Battle Plan
+        </button>
+        <div class="bp-content" id="bp-content"></div>
+      </div>
+    </div>
+
+    <!-- Add Task -->
+    <div class="add-task-section">
+      <div class="form-title">+ New Task</div>
+      <div class="form-row">
+        <input type="text" id="task-input" placeholder="What needs to be done..." maxlength="80">
+        <input type="time" id="task-time">
+        <select id="task-priority">
+          <option value="high">🟠 High</option>
+          <option value="medium" selected>🟡 Medium</option>
+          <option value="low">🟢 Low</option>
+        </select>
+        <button class="add-btn" onclick="window.addTask()">ADD</button>
+      </div>
+    </div>
+
+    <div class="priority-legend">
+      <div class="legend-item"><div class="dot" style="background:var(--high)"></div>High — do today</div>
+      <div class="legend-item"><div class="dot" style="background:var(--medium)"></div>Medium — schedule it</div>
+      <div class="legend-item"><div class="dot" style="background:var(--low)"></div>Low — when possible</div>
+    </div>
+
+    <div class="toolbar">
+      <span class="toolbar-label">Tasks</span>
+      <div style="display:flex;gap:8px;">
+        <button class="sort-btn active" id="sort-priority" onclick="window.setSort('priority')">By Priority</button>
+        <button class="sort-btn" id="sort-time" onclick="window.setSort('time')">By Time</button>
+        <button class="sort-btn" id="sort-added" onclick="window.setSort('added')">By Added</button>
+      </div>
+    </div>
+
+    <div id="task-list"></div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

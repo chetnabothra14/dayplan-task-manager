@@ -1,0 +1,72 @@
+:root {
+  --bg: #0e0e11;
+  --surface: #16161a;
+  --border: #2a2a30;
+  --text: #e8e8f0;
+  --muted: #6b6b80;
+  --high: #ff8c42;
+  --medium: #f5d547;
+  --low: #4dff91;
+  --accent: #7b5ea7;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(123,94,167,.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(123,94,167,.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastOut {
+  to { opacity: 0; transform: translateX(20px); }
+}
+
+.app-loading {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; padding: 60px; color: var(--muted); font-size: .85rem;
+}
+
+.bp-spinner {
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  animation: spin .8s linear infinite;
+}
+
+@media (max-width: 600px) {
+  .stats { flex-wrap: wrap; }
+  .stat  { min-width: calc(50% - 8px); }
+  .form-row { flex-direction: column; }
+  input[type=time], select { width: 100%; }
+  .mode-selector { flex-direction: column; }
+}
